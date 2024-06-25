@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { TAddress, TBloodGroup, TSection, TStatus } from '../../global/types';
 
 export type TStudent = {
   _id: Schema.Types.ObjectId;
@@ -23,26 +24,12 @@ export type TStudentName = {
   englishName: string;
 };
 
-export type TSection = 'BOY' | 'GIRL';
-
 export type TStudentClass = {
   arabic: string;
   general: string;
 };
 
-export type TBloodGroup =
-  | 'A+'
-  | 'A-'
-  | 'B+'
-  | 'B-'
-  | 'AB+'
-  | 'AB-'
-  | 'O+'
-  | 'O-';
-
 export type TStudentType = 'REGULAR' | 'IRREGULAR';
-
-export type TStatus = 'ACTIVE' | 'INACTIVE';
 
 export type TParents = {
   father: TPerson;
@@ -61,11 +48,4 @@ export type TGuardian = {
   address: string;
   nid: string;
   number: string;
-};
-
-export type TAddress = {
-  villageOrStreetAddress: string;
-  postOffice: string;
-  thana: string;
-  district: string;
 };

@@ -1,5 +1,4 @@
 import {
-  TAddress,
   TGuardian,
   TParents,
   TPerson,
@@ -7,13 +6,10 @@ import {
   TStudentClass,
   TStudentName,
 } from './interface';
-import {
-  BloodGroups,
-  Sections,
-  StudentTypes,
-  StudentsStatus,
-} from './constants';
+import { StudentTypes, StudentsStatus } from './constants';
 import { Schema, model } from 'mongoose';
+import { BloodGroups, Sections } from '../../global/constants';
+import { AddressSubSchema } from '../../global/schema';
 
 const NameSubSchema = new Schema<TStudentName>(
   {
@@ -59,16 +55,6 @@ const GuardianSubSchema = new Schema<TGuardian>(
   { _id: false }
 );
 
-const AddressSubSchema = new Schema<TAddress>(
-  {
-    villageOrStreetAddress: { type: String, required: true },
-    postOffice: { type: String, required: true },
-    thana: { type: String, required: true },
-    district: { type: String, required: true },
-  },
-  { _id: false }
-);
-
 const StudentSchema = new Schema<TStudent>(
   {
     studentId: { type: String, required: true, unique: true },
@@ -82,7 +68,7 @@ const StudentSchema = new Schema<TStudent>(
     name: { type: NameSubSchema, required: true },
     section: { type: String, enum: Sections, required: true },
     type: { type: String, enum: StudentTypes, default: 'REGULAR' },
-    image: { type: String, required: true, unique: true },
+    image: { type: String, required: true },
     class: { type: ClassSubSchema, required: true },
     dateOfBirth: { type: Date, required: true },
     bloodGroup: { type: String, enum: BloodGroups, required: true },

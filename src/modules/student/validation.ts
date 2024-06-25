@@ -1,14 +1,11 @@
 import { z } from 'zod';
-import { BloodGroups, Sections, StudentTypes } from './constants';
-import { IsValidDate } from '../../utils/helpers/helper';
+import { StudentTypes } from './constants';
+import { BloodGroups, Sections } from '../../global/constants';
+import { SAddress, SDate, SSection } from '../../global/validation';
 
 const SName = z.object({
-  bengaliName: z.string(),
-  englishName: z.string(),
-});
-
-const SSection = z.enum([...(Sections as [string, ...string[]])], {
-  required_error: `Section is required and it has to be ${Sections}`,
+  bengaliName: z.string({ required_error: 'Bengali name is required' }),
+  englishName: z.string({ required_error: 'English name is required' }),
 });
 
 const SStudentType = z.enum([...(StudentTypes as [string, ...string[]])], {
@@ -16,22 +13,18 @@ const SStudentType = z.enum([...(StudentTypes as [string, ...string[]])], {
 });
 
 const SStudentClass = z.object({
-  arabic: z.string(),
-  general: z.string(),
+  arabic: z.string({ required_error: 'Arabic Class Name is required' }),
+  general: z.string({ required_error: 'General Class name is required' }),
 });
-
-const SDob = z
-  .string()
-  .refine((date) => IsValidDate(date), { message: 'Invalid Date' });
 
 const SBloodGroup = z.enum([...(BloodGroups as [string, ...string[]])], {
   required_error: `Section is required and it has to be ${Sections}`,
 });
 
 const SPerson = z.object({
-  name: z.string(),
-  phone: z.string(),
-  nid: z.string(),
+  name: z.string({ required_error: 'Name is required' }),
+  phone: z.string({ required_error: 'Phone is required' }),
+  nid: z.string({ required_error: 'Nid is required' }),
 });
 
 const SParents = z.object({
@@ -40,28 +33,25 @@ const SParents = z.object({
 });
 
 const SGuardian = z.object({
-  name: z.string(),
-  relation: z.string(),
-  address: z.string(),
-  nid: z.string(),
-  number: z.string(),
-});
-
-const SAddress = z.object({
-  villageOrStreetAddress: z.string(),
-  postOffice: z.string(),
-  thana: z.string(),
-  district: z.string(),
+  name: z.string({ required_error: 'Name is required' }),
+  relation: z.string({
+    required_error: 'Relation between student and guarding is not provided',
+  }),
+  address: z.string({ required_error: 'Address is required' }),
+  nid: z.string({ required_error: 'Nid is required' }),
+  number: z.string({ required_error: 'Phone number is required' }),
 });
 
 const SCreateStudent = z.object({
-  birthCertification: z.string(),
+  birthCertification: z.string({
+    required_error: 'Birth certificate is required',
+  }),
   name: SName,
   section: SSection,
   type: SStudentType,
-  image: z.string(),
+  image: z.string({ required_error: 'Student image is required' }),
   class: SStudentClass,
-  dateOfBirth: SDob,
+  dateOfBirth: SDate,
   bloodGroup: SBloodGroup,
   parents: SParents,
   guardian: SGuardian,

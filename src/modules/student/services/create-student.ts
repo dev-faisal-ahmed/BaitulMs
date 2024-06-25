@@ -53,11 +53,11 @@ export const CreateStudent = async (payload: TCreateStudentPayload) => {
     if (!newStudent) throw new AppError('Failed to create new student', 400);
 
     await session.commitTransaction();
+    await session.endSession();
     return newStudent;
   } catch (error: any) {
     await session.abortTransaction();
-    throw new AppError(error.message || 'Something went wrong', 400);
-  } finally {
     await session.endSession();
+    throw new AppError(error.message, 400);
   }
 };
