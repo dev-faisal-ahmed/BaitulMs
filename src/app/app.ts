@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { AppRouter } from '../router/router';
+import { AppRouter } from '../router';
 import { GlobalErrorHandler } from '../middleware/global-error.handler';
 
 export const App = express();
@@ -8,7 +8,7 @@ export const App = express();
 App.use(express.json());
 App.use(cors());
 
-App.use('/api', AppRouter);
+App.use('/api/v1', AppRouter);
 
 App.get('/', (_, res) => {
   res.status(200).json({ ok: true, message: 'Welcome To HiveMind API' });

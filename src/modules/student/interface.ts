@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 
 export type TStudent = {
   _id: Schema.Types.ObjectId;
+  userId: Schema.Types.ObjectId;
   studentId: string;
   birthCertification: string;
   name: TStudentName;
@@ -17,7 +18,17 @@ export type TStudent = {
   status: TStatus;
 };
 
+export type TStudentName = {
+  bengaliName: string;
+  englishName: string;
+};
+
 export type TSection = 'BOY' | 'GIRL';
+
+export type TStudentClass = {
+  arabic: string;
+  general: string;
+};
 
 export type TBloodGroup =
   | 'A+'
@@ -32,16 +43,6 @@ export type TBloodGroup =
 export type TStudentType = 'REGULAR' | 'IRREGULAR';
 
 export type TStatus = 'ACTIVE' | 'INACTIVE';
-
-export type TStudentName = {
-  bengaliName: string;
-  englishName: string;
-};
-
-export type TStudentClass = {
-  arabic: string;
-  general: string;
-};
 
 export type TParents = {
   father: TPerson;

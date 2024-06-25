@@ -1,18 +1,25 @@
-import { ErrorRequestHandler } from "express";
-import { SendErrorResponse } from "../utils/response.helper";
+import { ErrorRequestHandler } from 'express';
+import { SendErrorResponse } from '../utils/helpers/response.helper';
 
 export const GlobalErrorHandler: ErrorRequestHandler = (err, _, res, __) => {
   let status: number = err.status || 500;
-  let message: string = err.message || "something went wrong";
+  let message: string = err.message || 'something went wrong';
 
-  if (err.name === "ZodError") {
+  if (err.name === 'ZodError') {
     message = err.issues.reduce(
-      (msg: string, issue: { message: string; path: any[]; received: string }, index: number) => {
-        msg += issue.received === "undefined" ? issue.message : `In ${issue.path[0]} ${issue.message}`;
-        msg += index !== err.issues.length - 1 ? " || " : "";
+      (
+        msg: string,
+        issue: { message: string; path: any[]; received: string },
+        index: number
+      ) => {
+        msg +=
+          issue.received === 'undefined'
+            ? issue.message
+            : `In ${issue.path[0]} ${issue.message}`;
+        msg += index !== err.issues.length - 1 ? ' || ' : '';
         return msg;
       },
-      ""
+      ''
     );
   }
   return SendErrorResponse(res, { message, status, error: err });

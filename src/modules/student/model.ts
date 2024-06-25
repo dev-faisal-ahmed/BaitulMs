@@ -6,14 +6,14 @@ import {
   TStudent,
   TStudentClass,
   TStudentName,
-} from './student.interface';
-import { Schema } from 'mongoose';
+} from './interface';
 import {
   BloodGroups,
   Sections,
   StudentTypes,
   StudentsStatus,
-} from './student.constants';
+} from './constants';
+import { Schema, model } from 'mongoose';
 
 const NameSubSchema = new Schema<TStudentName>(
   {
@@ -69,18 +69,29 @@ const AddressSubSchema = new Schema<TAddress>(
   { _id: false }
 );
 
-export const StudentSchema = new Schema<TStudent>({
-  studentId: { type: String, required: true, unique: true },
-  birthCertification: { type: String, required: true, unique: true },
-  name: NameSubSchema,
-  section: { type: String, enum: Sections, required: true },
-  type: { type: String, enum: StudentTypes, default: 'REGULAR' },
-  image: { type: String, required: true, unique: true },
-  class: ClassSubSchema,
-  dateOfBirth: { type: Date, required: true },
-  bloodGroup: { type: String, enum: BloodGroups, required: true },
-  parents: ParentsSubSchema,
-  guardian: GuardianSubSchema,
-  address: AddressSubSchema,
-  status: { type: String, enum: StudentsStatus, required: true },
-});
+const StudentSchema = new Schema<TStudent>(
+  {
+    studentId: { type: String, required: true, unique: true },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'user',
+      unique: true,
+    },
+    birthCertification: { type: String, required: true, unique: true },
+    name: { type: NameSubSchema, required: true },
+    section: { type: String, enum: Sections, required: true },
+    type: { type: String, enum: StudentTypes, default: 'REGULAR' },
+    image: { type: String, required: true, unique: true },
+    class: { type: ClassSubSchema, required: true },
+    dateOfBirth: { type: Date, required: true },
+    bloodGroup: { type: String, enum: BloodGroups, required: true },
+    parents: { type: ParentsSubSchema, required: true },
+    guardian: { type: GuardianSubSchema, required: true },
+    address: { type: AddressSubSchema, required: true },
+    status: { type: String, enum: StudentsStatus, default: 'ACTIVE' },
+  },
+  { timestamps: true }
+);
+
+export const StudentModel = model('student', StudentSchema);
