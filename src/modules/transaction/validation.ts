@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { PaymentTypes, SalaryTypes, TransactionTypes } from './constants';
-import { DateGenerator, EnumGenerator } from '../../utils/helpers/zod.helper';
+import { EnumGenerator } from '../../utils/helpers/zod.helper';
+import { SDate } from '../../global/validation';
 
 const SPayment = z.object({
   studentId: z.string({ required_error: 'StudentId is required' }),
@@ -26,7 +27,7 @@ const AddTransaction = z.object({
   payment: SPayment.optional(),
   salary: SSalary.optional(),
   expenseCategoryId: z.string().optional(),
-  forDate: DateGenerator('Date is required', 'Invalid Date'),
+  forDate: SDate,
   amount: z.number({ required_error: 'Amount is required' }),
 });
 

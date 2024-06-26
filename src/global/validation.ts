@@ -1,10 +1,8 @@
 import { z } from 'zod';
-import { IsValidDate } from '../utils/helpers/helper';
 import { Sections } from './constants';
+import { DateGenerator, EnumGenerator } from '../utils/helpers/zod.helper';
 
-export const SDate = z
-  .string({ required_error: 'Date is required' })
-  .refine((date) => IsValidDate(date), { message: 'Invalid Date' });
+export const SDate = DateGenerator('Date is required', 'Invalid Date');
 
 export const SAddress = z.object({
   villageOrStreetAddress: z.string({
@@ -15,6 +13,7 @@ export const SAddress = z.object({
   district: z.string({ required_error: 'District is required' }),
 });
 
-export const SSection = z.enum([...(Sections as [string, ...string[]])], {
-  required_error: `Section is required and it has to be ${Sections}`,
-});
+export const SSection = EnumGenerator(
+  Sections,
+  `Section is required and it has to be "${Sections}"`
+);
