@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only ./src/app/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "seed-admin": "ts-node-dev --respawn --transpile-only ./src/seeding/seed-admin.ts"
   },
   "keywords": [],
   "license": "ISC",
