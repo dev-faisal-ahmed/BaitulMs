@@ -1,3 +1,5 @@
+import { Schema } from 'mongoose';
+
 export type TStatus = 'ACTIVE' | 'INACTIVE';
 
 export type TSection = 'BOY' | 'GIRL';
@@ -18,3 +20,11 @@ export type TBloodGroup =
   | 'AB-'
   | 'O+'
   | 'O-';
+
+export type TAuth = {
+  _id: Schema.Types.ObjectId;
+  name: string;
+  role: TRole;
+};
+
+export type TRole = 'STUDENT' | 'TEACHER' | 'ADMIN';

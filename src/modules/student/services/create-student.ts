@@ -1,11 +1,9 @@
 import { TCreateStudentPayload } from '../validation';
-import { Formatter } from '../../../utils/helpers/helper';
+import { Formatter, hashPassword } from '../../../utils/helpers';
 import { AppError } from '../../../utils/app-error';
-import { BCRYPT_SALT } from '../../../config';
 import { UserModel } from '../../user/model';
 import { StudentModel } from '../model';
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
 
 export const CreateStudent = async (payload: TCreateStudentPayload) => {
   const session = await mongoose.startSession();
@@ -26,10 +24,7 @@ export const CreateStudent = async (payload: TCreateStudentPayload) => {
       payload.section === 'BOY' ? 'B' : 'G'
     }-${year}-${Formatter(String(studentCount + 1), 3)}`;
 
-    const hashedPassword = await bcrypt.hash(
-      payload.birthCertification,
-      BCRYPT_SALT!
-    );
+    const hashedPassword = await hashPassword(payload.birthCertification);
 
     const [newUser] = await UserModel.create(
       [

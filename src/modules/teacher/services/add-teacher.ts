@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
 import { TAddTeacherPayload } from '../validation';
 import { TeacherModel } from '../model';
-import { Formatter } from '../../../utils/helpers/helper';
-import { BCRYPT_SALT } from '../../../config';
+import { Formatter, hashPassword } from '../../../utils/helpers';
 import { UserModel } from '../../user/model';
 import { AppError } from '../../../utils/app-error';
 
@@ -15,7 +13,7 @@ export const AddTeacher = async (payload: TAddTeacherPayload) => {
     const teacherId = `T-${Formatter(String(teacherCount + 1), 2)}`;
 
     // hashing the password
-    const password = await bcrypt.hash(payload.nid, BCRYPT_SALT!);
+    const password = await hashPassword(payload.nid);
     // creating a new user
     const [newUser] = await UserModel.create(
       [{ name: payload.name, password, role: 'TEACHER', userId: teacherId }],

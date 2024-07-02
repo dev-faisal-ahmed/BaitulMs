@@ -1,4 +1,4 @@
-import { SendSuccessResponse } from '../../utils/helpers/response.helper';
+import { SendSuccessResponse } from '../../utils/helpers';
 import { TryCatch } from '../../utils/try-catch';
 import { AttendanceService } from './services';
 

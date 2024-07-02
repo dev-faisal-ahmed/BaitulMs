@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { PaymentTypes, SalaryTypes, TransactionTypes } from './constants';
-import { EnumGenerator } from '../../utils/helpers/zod.helper';
+import { EnumGenerator } from '../../utils/helpers';
 import { SDate } from '../../global/validation';
 
 const SPayment = z.object({

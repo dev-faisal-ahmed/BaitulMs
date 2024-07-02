@@ -1,5 +1,5 @@
 import { ErrorRequestHandler } from 'express';
-import { SendErrorResponse } from '../utils/helpers/response.helper';
+import { SendErrorResponse } from '../utils/helpers';
 
 export const GlobalErrorHandler: ErrorRequestHandler = (err, _, res, __) => {
   let status: number = err.status || 500;

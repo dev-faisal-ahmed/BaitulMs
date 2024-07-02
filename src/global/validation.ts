@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Sections } from './constants';
-import { DateGenerator, EnumGenerator } from '../utils/helpers/zod.helper';
+import { DateGenerator, EnumGenerator } from '../utils/helpers';
 
 export const SDate = DateGenerator('Date is required', 'Invalid Date');
 
