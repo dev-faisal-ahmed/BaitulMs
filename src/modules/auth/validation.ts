@@ -11,7 +11,13 @@ const SAdminLogin = z.object({
     .email({ message: 'Invalid Email' }),
 });
 
-export const AuthValidation = { SLogin, SAdminLogin };
+const SChangePassword = z.object({
+  oldPassword: z.string({ required_error: 'Old password is required' }),
+  newPassword: z.string({ required_error: 'New password is required' }),
+});
+
+export const AuthValidation = { SLogin, SAdminLogin, SChangePassword };
 
 export type TLoginPayload = z.infer<typeof SLogin>;
 export type TAdminLoginPayload = z.infer<typeof SAdminLogin>;
+export type TChangePasswordPayload = z.infer<typeof SChangePassword>;

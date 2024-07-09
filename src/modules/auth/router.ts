@@ -16,3 +16,5 @@ AuthRouter.post(
   ValidationHandler(AuthValidation.SAdminLogin),
   AuthController.AdminLogin
 );
+
+AuthRouter.post('/change-password');
