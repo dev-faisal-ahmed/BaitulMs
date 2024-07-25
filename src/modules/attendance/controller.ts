@@ -12,4 +12,16 @@ const AddAttendances = TryCatch(async (req, res) => {
   });
 });
 
-export const AttendanceController = { AddAttendances };
+const GetAttendanceByClass = TryCatch(async (req, res) => {
+  const cls = req.params.class;
+  const days = Number(req.params.days) || 30;
+  const attendances = await AttendanceService.GetAttendancesByClass(cls, days);
+
+  SendSuccessResponse(res, {
+    status: 200,
+    message: 'Attendances retrieved successfully',
+    data: attendances,
+  });
+});
+
+export const AttendanceController = { AddAttendances, GetAttendanceByClass };

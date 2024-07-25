@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { AttendanceModel } from '../model';
 import { TAddAttendancesPayload } from '../validation';
 import { DateTrackerModel } from '../../date-tracker/model';
+import { StudentModel } from '../../student/model';
 
 export const AddAttendances = async (payload: TAddAttendancesPayload) => {
   const session = await mongoose.startSession();
@@ -9,11 +10,13 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
     session.startTransaction();
 
     const today = new Date();
+
     const startOfDay = new Date(
       today.getFullYear(),
       today.getMonth(),
       today.getDate()
     );
+
     const endOfDay = new Date(
       today.getFullYear(),
       today.getMonth(),
@@ -27,17 +30,36 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
     if (todaysInfo && todaysInfo.status === 'HOLIDAY')
       throw new Error('Today is holiday');
 
-    const studentIds = payload.studentIds.reduce(
-      (acc: { studentId: string }[], studentId) => {
-        acc.push({ studentId });
-        return acc;
-      },
-      []
-    );
+    const studentIds = payload.studentIds.reduce((acc: string[], studentId) => {
+      acc.push(studentId);
+      return acc;
+    }, []);
 
-    const attendances = await AttendanceModel.insertMany(studentIds, {
-      session,
-    });
+    const attendances = [];
+
+    for (const studentId of studentIds) {
+      const isAttendanceExist = await AttendanceModel.findOne({
+        date: { $gte: startOfDay, $lte: endOfDay },
+        studentId,
+      });
+
+      const studentInfo = await StudentModel.findOne({ _id: studentId });
+
+      if (isAttendanceExist) {
+        attendances.push(
+          `ID: ${studentInfo?.studentId} : Already ${isAttendanceExist.status}`
+        );
+
+        continue;
+      }
+
+      const [attendance] = await AttendanceModel.create([{ studentId }], {
+        session,
+      });
+
+      if (attendance)
+        attendances.push(`ID: ${studentInfo?.studentId} : Present`);
+    }
 
     if (!attendances.length) throw new Error('Failed to add attendance!');
 
@@ -55,6 +77,7 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
 
     return attendances;
   } catch (error) {
+    console.log(error);
     await session.abortTransaction();
     await session.endSession();
   }
