@@ -23,12 +23,12 @@ const AdminLogin = TryCatch(async (req, res) => {
 });
 
 const ChangePassword = TryCatch(async (req, res) => {
-  const token = await AuthService.ChangePassword(req.user._id, req.body);
+  const message = await AuthService.ChangePassword(req.user._id, req.body);
 
   SendSuccessResponse(res, {
     status: 200,
-    message: 'Password changed successfully',
-    data: { token },
+    message,
+    data: {},
   });
 });
 

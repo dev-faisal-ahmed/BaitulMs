@@ -7,8 +7,11 @@ export const ChangePassword = async (
   userId: string,
   payload: TChangePasswordPayload
 ) => {
+  if (payload.oldPassword === payload.newPassword)
+    throw new AppError('Old password and new password are the same', 400);
+
   const userInfo = await UserModel.findOne({ _id: userId });
-  if (!userInfo) throw new AppError('User not found', 400);
+  if (!userInfo) throw new AppError('User not found', 404);
 
   const isPasswordMatched = await matchPassword(
     payload.oldPassword,
@@ -19,8 +22,7 @@ export const ChangePassword = async (
   const hashedPassword = await hashPassword(payload.newPassword);
 
   userInfo.password = hashedPassword;
-  const isPassword = await userInfo.save();
-  console.log(isPassword);
+  await userInfo.save();
 
-  return isPassword;
+  return 'Password Changed Successfully';
 };

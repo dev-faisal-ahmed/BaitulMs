@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ValidationHandler } from '../../middleware/validation.handler';
 import { AuthValidation } from './validation';
 import { AuthController } from './controller';
+import { AuthGuard } from '../../middleware/auth-guard';
 
 export const AuthRouter = Router();
 
@@ -17,4 +18,9 @@ AuthRouter.post(
   AuthController.AdminLogin
 );
 
-AuthRouter.post('/change-password');
+AuthRouter.patch(
+  '/change-password',
+  AuthGuard('STUDENT', 'TEACHER'),
+  ValidationHandler(AuthValidation.SChangePassword),
+  AuthController.ChangePassword
+);
