@@ -24,7 +24,7 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
     );
 
     const todaysInfo = await DateTrackerModel.findOne({
-      date: { $gte: startOfDay, $lte: endOfDay },
+      date: { $gte: startOfDay.toString(), $lte: endOfDay.toString() },
     });
 
     if (todaysInfo && todaysInfo.status === 'HOLIDAY')
@@ -39,7 +39,7 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
 
     for (const studentId of studentIds) {
       const isAttendanceExist = await AttendanceModel.findOne({
-        date: { $gte: startOfDay, $lte: endOfDay },
+        date: { $gte: startOfDay.toString(), $lte: endOfDay.toString() },
         studentId,
       });
 
@@ -53,19 +53,18 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
         continue;
       }
 
-      const [attendance] = await AttendanceModel.create([{ studentId }], {
-        session,
-      });
+      const [attendance] = await AttendanceModel.create(
+        [{ studentId, date: new Date().toString() }],
+        { session }
+      );
 
       if (attendance)
         attendances.push(`ID: ${studentInfo?.studentId} : Present`);
     }
 
-    if (!attendances.length) throw new Error('Failed to add attendance!');
-
     if (!todaysInfo) {
       const [newDaysInfo] = await DateTrackerModel.create(
-        [{ date: today, status: 'ACTIVE_DAY' }],
+        [{ date: today.toString(), status: 'ACTIVE_DAY' }],
         { session }
       );
 

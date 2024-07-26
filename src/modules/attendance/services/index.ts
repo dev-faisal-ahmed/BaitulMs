@@ -1,4 +1,4 @@
 import { AddAttendances } from './add-attendances';
-import { GetAttendancesByClass } from './get-attendances-by-class';
+import { GetAttendances } from './get-attendances';
 
-export const AttendanceService = { AddAttendances, GetAttendancesByClass };
+export const AttendanceService = { AddAttendances, GetAttendances };

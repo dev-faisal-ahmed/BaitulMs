@@ -14,7 +14,7 @@ AttendancesRouter.post(
 );
 
 AttendancesRouter.get(
-  '/:class',
+  '/',
   AuthGuard('ADMIN', 'TEACHER'),
-  AttendanceController.GetAttendanceByClass
+  AttendanceController.GetAttendances
 );
