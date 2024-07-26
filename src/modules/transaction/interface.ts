@@ -17,7 +17,7 @@ export type TPayment = {
 
 export type TSalary = {
   teacherId: Schema.Types.ObjectId;
-  type: TSalary;
+  type: TSalaryType;
 };
 
 export type TTransactionType = 'PAYMENT' | 'SALARY' | 'EXPENSE';
