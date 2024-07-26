@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Sections } from './constants';
+import { BloodGroups, Sections } from './constants';
 import { DateGenerator, EnumGenerator } from '../utils/helpers';
 
 export const SDate = DateGenerator('Date is required', 'Invalid Date');
@@ -16,4 +16,9 @@ export const SAddress = z.object({
 export const SSection = EnumGenerator(
   Sections,
   `Section is required and it has to be "${Sections}"`
+);
+
+export const SBloodGroup = EnumGenerator(
+  BloodGroups,
+  `Blood Group is required and it has to be ${BloodGroups}`
 );
