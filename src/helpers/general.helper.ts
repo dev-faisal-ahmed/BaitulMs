@@ -1,15 +1,15 @@
-export const Picker = (fields: string[], data: Record<string, any>) => {
+export const picker = (fields: string[], data: Record<string, any>) => {
   return fields.reduce((acc: Record<string, any>, field) => {
     if (data[field]) acc[field] = data[field];
     return acc;
   }, {});
 };
 
-export const IsEmptyObject = (obj: Record<string, any>) => {
+export const isEmptyObject = (obj: Record<string, any>) => {
   return Boolean(!Object.keys(obj).length);
 };
 
-export const IsValidDate = (date: string) => {
+export const isValidDate = (date: string) => {
   const dateObject = new Date(date);
 
   return (
@@ -17,7 +17,7 @@ export const IsValidDate = (date: string) => {
   );
 };
 
-export const Formatter = (payload: string, size: number) => {
+export const formatter = (payload: string, size: number) => {
   let data: string = '';
   const length = payload.length;
 

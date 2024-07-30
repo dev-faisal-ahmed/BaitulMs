@@ -15,7 +15,7 @@ const AttendanceSchema = new Schema<TAttendance, TAttendanceModel>(
 
 AttendanceSchema.statics.getAttendanceByStudentId = getAttendanceByStudentId;
 
-export const AttendanceModel = model<TAttendance, TAttendanceModel>(
+export const Attendance = model<TAttendance, TAttendanceModel>(
   'attendance',
   AttendanceSchema
 );

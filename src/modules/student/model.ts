@@ -80,4 +80,4 @@ const StudentSchema = new Schema<TStudent>(
   { timestamps: true }
 );
 
-export const StudentModel = model('student', StudentSchema);
+export const Student = model<TStudent>('student', StudentSchema);

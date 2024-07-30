@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import { TAddTeacherPayload } from '../validation';
 import { TeacherModel } from '../model';
-import { Formatter, hashPassword } from '../../../utils/helpers';
-import { UserModel } from '../../user/model';
+// import { Formatter, hashPassword } from '../../../helpers';
+import { User } from '../../user/model';
 import { AppError } from '../../../utils/app-error';
+import { Formatter, hashPassword } from '../../../helpers';
 
 export const AddTeacher = async (payload: TAddTeacherPayload) => {
   const session = await mongoose.startSession();
@@ -15,7 +16,7 @@ export const AddTeacher = async (payload: TAddTeacherPayload) => {
     // hashing the password
     const password = await hashPassword(payload.nid);
     // creating a new user
-    const [newUser] = await UserModel.create(
+    const [newUser] = await User.create(
       [{ name: payload.name, password, role: 'TEACHER', userId: teacherId }],
       { session }
     );

@@ -1,5 +1,11 @@
 import { Schema } from 'mongoose';
 
+export type TLoggedUser = {
+  _id: Schema.Types.ObjectId;
+  role: TRole;
+  name: string;
+};
+
 export type TStatus = 'ACTIVE' | 'INACTIVE';
 
 export type TSection = 'BOY' | 'GIRL';

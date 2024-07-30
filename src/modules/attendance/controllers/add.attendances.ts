@@ -1,29 +1,30 @@
 import mongoose from 'mongoose';
-import { AttendanceModel } from '../model';
+import { TryCatch } from '../../../utils/try-catch';
 import { TAddAttendancesPayload } from '../validation';
-import { DateTrackerModel } from '../../date-tracker/model';
-import { StudentModel } from '../../student/model';
+import { DateTracker } from '../../date-tracker/model';
+import { Attendance } from '../model';
+import { Student } from '../../student/model';
+import { SendSuccessResponse } from '../../../helpers';
 
-export const AddAttendances = async (payload: TAddAttendancesPayload) => {
+export const AddAttendances = TryCatch(async (req, res) => {
+  const payload: TAddAttendancesPayload = req.body;
   const session = await mongoose.startSession();
+
   try {
     session.startTransaction();
-
     const today = new Date();
-
     const startOfDay = new Date(
       today.getFullYear(),
       today.getMonth(),
       today.getDate()
     );
-
     const endOfDay = new Date(
       today.getFullYear(),
       today.getMonth(),
       today.getDate() + 1
     );
 
-    const todaysInfo = await DateTrackerModel.findOne({
+    const todaysInfo = await DateTracker.findOne({
       date: { $gte: startOfDay.toString(), $lte: endOfDay.toString() },
     });
 
@@ -38,12 +39,12 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
     const attendances = [];
 
     for (const studentId of studentIds) {
-      const isAttendanceExist = await AttendanceModel.findOne({
+      const isAttendanceExist = await Attendance.findOne({
         date: { $gte: startOfDay.toString(), $lte: endOfDay.toString() },
         studentId,
       });
 
-      const studentInfo = await StudentModel.findOne({ _id: studentId });
+      const studentInfo = await Student.findOne({ _id: studentId });
 
       if (isAttendanceExist) {
         attendances.push(
@@ -53,7 +54,7 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
         continue;
       }
 
-      const [attendance] = await AttendanceModel.create(
+      const [attendance] = await Attendance.create(
         [{ studentId, date: new Date().toString() }],
         { session }
       );
@@ -63,7 +64,7 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
     }
 
     if (!todaysInfo) {
-      const [newDaysInfo] = await DateTrackerModel.create(
+      const [newDaysInfo] = await DateTracker.create(
         [{ date: today.toString(), status: 'ACTIVE_DAY' }],
         { session }
       );
@@ -74,10 +75,13 @@ export const AddAttendances = async (payload: TAddAttendancesPayload) => {
     await session.commitTransaction();
     await session.endSession();
 
-    return attendances;
+    SendSuccessResponse(res, {
+      status: 200,
+      message: 'Attendances added successfully',
+      data: attendances,
+    });
   } catch (error) {
-    console.log(error);
     await session.abortTransaction();
     await session.endSession();
   }
-};
+});

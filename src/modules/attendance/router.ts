@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { ValidationHandler } from '../../middleware/validation.handler';
 import { AttendanceValidation } from './validation';
-import { AttendanceController } from './controller';
-import { AuthGuard } from '../../middleware/auth-guard';
+import { AuthGuard } from '../../middleware/auth.guard';
+import { AttendanceController } from './controllers';
 
 export const AttendancesRouter = Router();
 

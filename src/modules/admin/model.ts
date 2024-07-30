@@ -10,4 +10,4 @@ const AdminSchema = new Schema<TAdmin>(
   { timestamps: true }
 );
 
-export const AdminModel = model('admin', AdminSchema);
+export const Admin = model<TAdmin>('admin', AdminSchema);

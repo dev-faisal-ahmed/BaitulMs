@@ -13,7 +13,7 @@ const DateTrackerSchema = new Schema<TDateTracker, TDateTrackerModel>(
 
 DateTrackerSchema.statics.getDatesByRange = getDatesByRange;
 
-export const DateTrackerModel = model<TDateTracker, TDateTrackerModel>(
+export const DateTracker = model<TDateTracker, TDateTrackerModel>(
   'date-tracker',
   DateTrackerSchema
 );

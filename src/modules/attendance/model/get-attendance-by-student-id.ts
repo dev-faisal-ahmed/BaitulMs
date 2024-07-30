@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import { TDateTracker } from '../../date-tracker/interface';
 import { TAttendance, TAttendancesInfo } from '../interface';
-import { StudentModel } from '../../student/model';
+import { Student } from '../../student/model';
 
 export async function getAttendanceByStudentId(
   this: any,
@@ -9,7 +9,7 @@ export async function getAttendanceByStudentId(
   studentId: Schema.Types.ObjectId,
   days: number
 ) {
-  const studentInfo = await StudentModel.findOne(
+  const studentInfo = await Student.findOne(
     { _id: studentId },
     { name: 1, studentId: 1, section: 1, image: 1, class: 1 }
   );

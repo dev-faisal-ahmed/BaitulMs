@@ -1,9 +1,9 @@
-import { TUser } from './modules/user/user.interface';
+import { TLoggedUser } from './global/types';
 
 declare global {
   namespace Express {
     interface Request {
-      user: TUser;
+      user: TLoggedUser;
     }
   }
 }

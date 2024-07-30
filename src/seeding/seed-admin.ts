@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 import { ADMIN_EMAIL, ADMIN_NAME, MONGO_URI } from '../config';
-import { AdminModel } from '../modules/admin/model';
+import { Admin } from '../modules/admin/model';
 
 const SeedAdmin = async () => {
   try {
     await mongoose.connect(MONGO_URI!);
-    const isAdminExist = await AdminModel.findOne({ email: ADMIN_EMAIL });
+    const isAdminExist = await Admin.findOne({ email: ADMIN_EMAIL });
     if (isAdminExist) throw new Error('This email already exist');
 
-    const newAdmin = await AdminModel.create({
+    const newAdmin = await Admin.create({
       email: ADMIN_EMAIL,
       name: ADMIN_NAME,
     });

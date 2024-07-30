@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { BloodGroups, Sections } from './constants';
-import { DateGenerator, EnumGenerator } from '../utils/helpers';
+import { DateGenerator, EnumGenerator } from '../helpers';
 
 export const SDate = DateGenerator('Date is required', 'Invalid Date');
 

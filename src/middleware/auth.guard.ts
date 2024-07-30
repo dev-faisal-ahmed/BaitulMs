@@ -1,7 +1,7 @@
 import { JWT_SECRET } from '../config';
 import { TRole } from '../global/types';
-import { AdminModel } from '../modules/admin/model';
-import { UserModel } from '../modules/user/model';
+import { Admin } from '../modules/admin/model';
+import { User } from '../modules/user/model';
 import { AppError } from '../utils/app-error';
 import { TryCatch } from '../utils/try-catch';
 import JWT, { JwtPayload, Secret } from 'jsonwebtoken';
@@ -25,13 +25,13 @@ export const AuthGuard = (...requiredRoles: TRole[]) => {
     const { _id, role, name } = decodedUser;
 
     if (role === 'ADMIN') {
-      const admin = AdminModel.findOne({ _id });
+      const admin = Admin.findOne({ _id });
       if (!admin) throw new AppError('Admin not found', 400);
 
       if (!requiredRoles.includes('ADMIN'))
         throw new AppError('You are not authorized', 400);
     } else {
-      const user = await UserModel.findOne({ _id });
+      const user = await User.findOne({ _id });
       if (!user) throw new AppError('User not found', 400);
 
       if (!requiredRoles.includes(user.role))

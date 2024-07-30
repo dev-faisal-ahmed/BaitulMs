@@ -1,9 +1,9 @@
 import { TCreateStudentPayload } from '../validation';
-import { Formatter, hashPassword } from '../../../utils/helpers';
 import { AppError } from '../../../utils/app-error';
-import { UserModel } from '../../user/model';
-import { StudentModel } from '../model';
+import { User } from '../../user/model';
+import { Student } from '../model';
 import mongoose from 'mongoose';
+import { formatter, hashPassword } from '../../../helpers';
 
 export const CreateStudent = async (payload: TCreateStudentPayload) => {
   const session = await mongoose.startSession();
@@ -14,7 +14,7 @@ export const CreateStudent = async (payload: TCreateStudentPayload) => {
     const start = new Date(currentYear, 0, 1);
     const end = new Date(currentYear + 1, 0, 1);
 
-    const studentCount = await StudentModel.countDocuments({
+    const studentCount = await Student.countDocuments({
       section: payload.section,
       createdAt: { $gte: start, $lte: end },
     });
@@ -22,11 +22,11 @@ export const CreateStudent = async (payload: TCreateStudentPayload) => {
     const year = String(currentYear).slice(2);
     const studentId = `${
       payload.section === 'BOY' ? 'B' : 'G'
-    }-${year}-${Formatter(String(studentCount + 1), 3)}`;
+    }-${year}-${formatter(String(studentCount + 1), 3)}`;
 
     const hashedPassword = await hashPassword(payload.birthCertification);
 
-    const [newUser] = await UserModel.create(
+    const [newUser] = await User.create(
       [
         {
           name: payload.name.englishName,
@@ -40,7 +40,7 @@ export const CreateStudent = async (payload: TCreateStudentPayload) => {
 
     if (!newUser) throw new AppError('Failed to create a new user', 400);
 
-    const [newStudent] = await StudentModel.create(
+    const [newStudent] = await Student.create(
       [{ ...payload, studentId, userId: newUser._id }],
       { session }
     );
