@@ -19,7 +19,7 @@ const SSalary = z.object({
   ),
 });
 
-const AddTransaction = z.object({
+const SAddTransaction = z.object({
   type: EnumGenerator(
     TransactionTypes,
     `TransactionType is required and it has to be ${TransactionTypes}}`
@@ -31,5 +31,5 @@ const AddTransaction = z.object({
   amount: z.number({ required_error: 'Amount is required' }),
 });
 
-export const TransactionValidation = { AddTransaction };
-export type TAddTransactionPayload = z.infer<typeof AddTransaction>;
+export const TransactionValidation = { SAddTransaction };
+export type TAddTransactionPayload = z.infer<typeof SAddTransaction>;

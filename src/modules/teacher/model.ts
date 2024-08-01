@@ -41,4 +41,4 @@ const TeacherSchema = new Schema<TTeacher>(
   { timestamps: true }
 );
 
-export const TeacherModel = model('teacher', TeacherSchema);
+export const Teacher = model<TTeacher>('teacher', TeacherSchema);

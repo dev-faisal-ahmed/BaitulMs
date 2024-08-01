@@ -1,11 +1,13 @@
-import { TCreateStudentPayload } from '../validation';
-import { AppError } from '../../../utils/app-error';
-import { User } from '../../user/model';
-import { Student } from '../model';
 import mongoose from 'mongoose';
-import { formatter, hashPassword } from '../../../helpers';
+import { AppError, TryCatch } from '../../../utils';
+import { TAddStudentPayload } from '../validation';
+import { Student } from '../model';
+import { formatter, hashPassword, SendSuccessResponse } from '../../../helpers';
+import { User } from '../../user/model';
 
-export const CreateStudent = async (payload: TCreateStudentPayload) => {
+export const AddStudent = TryCatch(async (req, res) => {
+  const payload: TAddStudentPayload = req.body;
+
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
@@ -49,10 +51,15 @@ export const CreateStudent = async (payload: TCreateStudentPayload) => {
 
     await session.commitTransaction();
     await session.endSession();
-    return newStudent;
+
+    SendSuccessResponse(res, {
+      status: 200,
+      message: 'Student Added Successfully',
+      data: newStudent,
+    });
   } catch (error: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new AppError(error.message, 400);
   }
-};
+});

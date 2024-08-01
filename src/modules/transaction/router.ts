@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { ValidationHandler } from '../../middleware/validation.handler';
+import { AuthGuard, ValidationHandler } from '../../middleware';
 import { TransactionValidation } from './validation';
-import { TransactionController } from './controller';
+import { TransactionController } from './controllers';
 
 export const TransactionRouter = Router();
 
 TransactionRouter.post(
   '/',
-  ValidationHandler(TransactionValidation.AddTransaction),
+  AuthGuard('ADMIN'),
+  ValidationHandler(TransactionValidation.SAddTransaction),
   TransactionController.AddTransaction
 );

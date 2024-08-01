@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { ValidationHandler } from '../../middleware/validation.handler';
+import { AuthGuard, ValidationHandler } from '../../middleware';
 import { TeacherValidation } from './validation';
-import { TeacherController } from './controller';
+import { TeacherController } from './controllers';
 
 export const TeacherRouter = Router();
 
 TeacherRouter.post(
   '/',
+  AuthGuard('ADMIN'),
   ValidationHandler(TeacherValidation.SAddTeacher),
   TeacherController.AddTeacher
 );

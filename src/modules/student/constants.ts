@@ -1,4 +1,4 @@
-import { TSection, TStatus } from '../../global/types';
+import { TStatus } from '../../global/types';
 import { TStudentType } from './interface';
 
 export const StudentTypes: TStudentType[] = ['REGULAR', 'IRREGULAR'];

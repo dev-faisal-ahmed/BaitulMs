@@ -30,4 +30,7 @@ const TransactionSchema = new Schema<TTransaction>(
   { timestamps: true }
 );
 
-export const TransactionModel = model('transaction', TransactionSchema);
+export const Transaction = model<TTransaction>(
+  'transaction',
+  TransactionSchema
+);

@@ -37,7 +37,7 @@ const SGuardian = z.object({
   number: z.string({ required_error: 'Phone number is required' }),
 });
 
-const SCreateStudent = z.object({
+const SAddStudent = z.object({
   birthCertification: z.string({
     required_error: 'Birth certificate is required',
   }),
@@ -53,6 +53,6 @@ const SCreateStudent = z.object({
   address: SAddress,
 });
 
-export const StudentValidation = { SCreateStudent };
+export const StudentValidation = { SAddStudent };
 
-export type TCreateStudentPayload = z.infer<typeof SCreateStudent>;
+export type TAddStudentPayload = z.infer<typeof SAddStudent>;
