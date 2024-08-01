@@ -3,8 +3,7 @@ import {
   matchPassword,
   SendSuccessResponse,
 } from '../../../helpers';
-import { AppError } from '../../../utils/app-error';
-import { TryCatch } from '../../../utils/try-catch';
+import { AppError, TryCatch } from '../../../utils';
 import { User } from '../../user/model';
 import { TLoginPayload } from '../validation';
 

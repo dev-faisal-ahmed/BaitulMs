@@ -1,5 +1,4 @@
-import { AppError } from '../../../utils/app-error';
-import { TryCatch } from '../../../utils/try-catch';
+import { AppError, TryCatch } from '../../../utils';
 import { Admin } from '../../admin/model';
 import { TAdminLoginPayload } from '../validation';
 import { generateAuthToken, SendSuccessResponse } from '../../../helpers';

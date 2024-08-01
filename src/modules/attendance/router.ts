@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { ValidationHandler } from '../../middleware/validation.handler';
+import { ValidationHandler, AuthGuard } from '../../middleware';
 import { AttendanceValidation } from './validation';
-import { AuthGuard } from '../../middleware/auth.guard';
 import { AttendanceController } from './controllers';
 
 export const AttendancesRouter = Router();
@@ -9,7 +8,7 @@ export const AttendancesRouter = Router();
 AttendancesRouter.post(
   '/',
   AuthGuard('ADMIN', 'TEACHER'),
-  ValidationHandler(AttendanceValidation.AddAttendances),
+  ValidationHandler(AttendanceValidation.SAddAttendances),
   AttendanceController.AddAttendances
 );
 

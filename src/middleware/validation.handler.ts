@@ -1,5 +1,5 @@
 import { AnyZodObject } from 'zod';
-import { TryCatch } from '../utils/try-catch';
+import { TryCatch } from '../utils';
 
 export const ValidationHandler = (schema: AnyZodObject) => {
   return TryCatch(async (req, _, next) => {

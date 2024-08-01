@@ -11,4 +11,4 @@ const ResultSchema = new Schema<TResult>(
   { timestamps: true }
 );
 
-export const ResultModel = model('result', ResultSchema);
+export const Result = model('result', ResultSchema);

@@ -9,4 +9,4 @@ const ExamSchema = new Schema<TExam>({
   status: { type: String, enum: ExamStatuses, default: 'UPCOMING' },
 });
 
-export const ExamModel = model('exam', ExamSchema);
+export const Exam = model<TExam>('exam', ExamSchema);

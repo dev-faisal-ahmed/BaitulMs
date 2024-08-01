@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { ValidationHandler } from '../../middleware/validation.handler';
+import { ValidationHandler, AuthGuard } from '../../middleware';
 import { ExamValidation } from './validation';
-import { ExamController } from './controller';
+import { ExamController } from './controllers';
 
 export const ExamRouter = Router();
 
 ExamRouter.post(
   '/',
-  ValidationHandler(ExamValidation.AddExam),
+  AuthGuard('ADMIN'),
+  ValidationHandler(ExamValidation.SAddExam),
   ExamController.AddExam
 );

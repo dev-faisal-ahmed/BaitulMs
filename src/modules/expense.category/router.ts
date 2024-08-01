@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { ValidationHandler } from '../../middleware/validation.handler';
+import { AuthGuard, ValidationHandler } from '../../middleware';
 import { ExpenseCategoryValidation } from './validation';
-import { ExpenseCategoryController } from './controller';
+import { ExpenseCategoryController } from './controllers';
 
 export const ExpenseCategoryRouter = Router();
 
 ExpenseCategoryRouter.post(
   '/',
-  ValidationHandler(ExpenseCategoryValidation.AddExpenseCategory),
+  AuthGuard('ADMIN'),
+  ValidationHandler(ExpenseCategoryValidation.SAddExpenseCategory),
   ExpenseCategoryController.AddExpenseCategory
 );

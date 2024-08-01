@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
-import { TryCatch } from '../../../utils/try-catch';
-import { DateTracker } from '../../date-tracker/model';
+import { TryCatch } from '../../../utils';
+import { DateTracker } from '../../date.tracker/model';
 import { Attendance } from '../model';
 import { Student } from '../../student/model';
 import { TStudentAttendanceInfo } from '../interface';

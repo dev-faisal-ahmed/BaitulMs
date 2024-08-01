@@ -2,8 +2,7 @@ import { JWT_SECRET } from '../config';
 import { TRole } from '../global/types';
 import { Admin } from '../modules/admin/model';
 import { User } from '../modules/user/model';
-import { AppError } from '../utils/app-error';
-import { TryCatch } from '../utils/try-catch';
+import { AppError, TryCatch } from '../utils';
 import JWT, { JwtPayload, Secret } from 'jsonwebtoken';
 
 const BEARER = 'Bearer';

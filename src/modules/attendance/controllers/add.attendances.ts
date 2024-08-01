@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { TryCatch } from '../../../utils/try-catch';
+import { TryCatch } from '../../../utils';
 import { TAddAttendancesPayload } from '../validation';
-import { DateTracker } from '../../date-tracker/model';
+import { DateTracker } from '../../date.tracker/model';
 import { Attendance } from '../model';
 import { Student } from '../../student/model';
 import { SendSuccessResponse } from '../../../helpers';

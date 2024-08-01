@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { TDateTracker } from '../../date-tracker/interface';
+import { TDateTracker } from '../../date.tracker/interface';
 import { TAttendance, TAttendancesInfo } from '../interface';
 import { Student } from '../../student/model';
 

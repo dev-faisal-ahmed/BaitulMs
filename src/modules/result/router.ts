@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { ValidationHandler } from '../../middleware/validation.handler';
+import { AuthGuard, ValidationHandler } from '../../middleware';
 import { ResultValidation } from './validation';
-import { ResultController } from './controller';
+import { ResultController } from './controllers';
 
 export const ResultRouter = Router();
 
 ResultRouter.post(
   '/',
-  ValidationHandler(ResultValidation.AddResult),
+  AuthGuard('ADMIN', 'TEACHER'),
+  ValidationHandler(ResultValidation.SAddResult),
   ResultController.AddResult
 );

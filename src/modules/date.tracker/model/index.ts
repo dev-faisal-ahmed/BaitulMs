@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { TDateTracker, TDateTrackerModel } from '../interface';
 import { DateStatuses } from '../constants';
-import { getDatesByRange } from './get-dates-by-range';
+import { getDatesByRange } from './get.dates.by.range';
 
 const DateTrackerSchema = new Schema<TDateTracker, TDateTrackerModel>(
   {

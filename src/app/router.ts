@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { StudentRouter } from '../modules/student/router';
 import { TeacherRouter } from '../modules/teacher/router';
 import { TransactionRouter } from '../modules/transaction/router';
-import { ExpenseCategoryRouter } from '../modules/expense-category/router';
+import { ExpenseCategoryRouter } from '../modules/expense.category/router';
 import { AttendancesRouter } from '../modules/attendance/router';
 import { ExamRouter } from '../modules/exam/router';
 import { ResultRouter } from '../modules/result/router';

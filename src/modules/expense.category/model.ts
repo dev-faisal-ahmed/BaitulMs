@@ -9,7 +9,4 @@ const ExpenseCategorySchema = new Schema<TExpenseCategory>(
   { timestamps: true }
 );
 
-export const ExpenseCategoryModel = model(
-  'expense-category',
-  ExpenseCategorySchema
-);
+export const ExpenseCategory = model('expense-category', ExpenseCategorySchema);
