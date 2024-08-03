@@ -11,10 +11,11 @@ export const isEmptyObject = (obj: Record<string, any>) => {
 
 export const isValidDate = (date: string) => {
   const dateObject = new Date(date);
+  return !isNaN(dateObject.getTime());
+};
 
-  return (
-    !isNaN(dateObject.getTime()) && dateObject.toString() !== 'Invalid Date'
-  );
+export const isValidNumber = (num: string) => {
+  return !isNaN(Number(num));
 };
 
 export const formatter = (payload: string, size: number) => {

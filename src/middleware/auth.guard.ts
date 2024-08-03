@@ -10,6 +10,7 @@ const BEARER = 'Bearer';
 export const AuthGuard = (...requiredRoles: TRole[]) => {
   return TryCatch(async (req, _, next) => {
     const token = req.headers.authorization;
+
     if (!token) throw new AppError('No Token Found!', 400);
 
     const [bearer, authToken] = token.split(' ');

@@ -1,13 +1,21 @@
 import { Response } from 'express';
 
-type TSuccessResponse = { data: any; message: string; status: number };
+type TMeta = { page: number; limit: number; total: number; totalPages: number };
+
+type TSuccessResponse = {
+  data: any;
+  message: string;
+  status: number;
+  meta?: TMeta;
+};
+
 type TErrorResponse = { error: any; message: string; status: number };
 
 export const SendSuccessResponse = (
   res: Response,
-  { status, data, message }: TSuccessResponse
+  { status, meta, data, message }: TSuccessResponse
 ) => {
-  return res.status(status).json({ ok: true, message, data });
+  return res.status(status).json({ ok: true, message, meta, data });
 };
 
 export const SendErrorResponse = (

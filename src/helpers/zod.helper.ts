@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { IsValidDate } from '.';
+import { isValidDate } from './general.helper';
 
-export const EnumGenerator = (options: string[], required_error: string) => {
+export const enumGenerator = (options: string[], required_error: string) => {
   return z.enum([...(options as [string, ...string[]])], { required_error });
 };
 
-export const DateGenerator = (required_error: string, message: string) => {
+export const dateGenerator = (required_error: string, message: string) => {
   return z
     .string({ required_error })
-    .refine((date) => IsValidDate(date), { message });
+    .refine((date) => isValidDate(date), { message });
 };

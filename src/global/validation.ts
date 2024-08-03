@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { BloodGroups, Sections } from './constants';
-import { DateGenerator, EnumGenerator } from '../helpers';
+import { dateGenerator, enumGenerator } from '../helpers';
 
-export const SDate = DateGenerator('Date is required', 'Invalid Date');
+export const SDate = dateGenerator('Date is required', 'Invalid Date');
 
 export const SAddress = z.object({
   villageOrStreetAddress: z.string({
@@ -13,12 +13,12 @@ export const SAddress = z.object({
   district: z.string({ required_error: 'District is required' }),
 });
 
-export const SSection = EnumGenerator(
+export const SSection = enumGenerator(
   Sections,
   `Section is required and it has to be "${Sections}"`
 );
 
-export const SBloodGroup = EnumGenerator(
+export const SBloodGroup = enumGenerator(
   BloodGroups,
   `Blood Group is required and it has to be ${BloodGroups}`
 );
