@@ -1,4 +1,4 @@
-import { SendSuccessResponse } from '../../../helpers';
+import { sendSuccessResponse } from '../../../helpers';
 import { AppError, TryCatch } from '../../../utils';
 import { Result } from '../model';
 import { TAddResultPayload } from '../validation';
@@ -17,7 +17,7 @@ export const AddResult = TryCatch(async (req, res) => {
 
   const newResult = await Result.create(payload);
 
-  SendSuccessResponse(res, {
+  sendSuccessResponse(res, {
     status: 200,
     message: 'Course has been successfully graded',
     data: newResult,

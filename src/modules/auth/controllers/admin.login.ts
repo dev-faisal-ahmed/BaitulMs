@@ -1,7 +1,7 @@
 import { AppError, TryCatch } from '../../../utils';
 import { Admin } from '../../admin/model';
 import { TAdminLoginPayload } from '../validation';
-import { generateAuthToken, SendSuccessResponse } from '../../../helpers';
+import { generateAuthToken, sendSuccessResponse } from '../../../helpers';
 
 export const AdminLogin = TryCatch(async (req, res) => {
   const payload: TAdminLoginPayload = req.body;
@@ -15,7 +15,7 @@ export const AdminLogin = TryCatch(async (req, res) => {
     role: isAdminExist.role,
   });
 
-  SendSuccessResponse(res, {
+  sendSuccessResponse(res, {
     status: 200,
     message: 'Login was successful',
     data: { token },

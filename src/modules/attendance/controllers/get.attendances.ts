@@ -4,7 +4,7 @@ import { DateTracker } from '../../date.tracker/model';
 import { Attendance } from '../model';
 import { Student } from '../../student/model';
 import { TStudentAttendanceInfo } from '../interface';
-import { SendSuccessResponse } from '../../../helpers';
+import { sendSuccessResponse } from '../../../helpers';
 
 export const GetAttendances = TryCatch(async (req, res) => {
   const { query } = req;
@@ -23,7 +23,7 @@ export const GetAttendances = TryCatch(async (req, res) => {
       days
     );
 
-    SendSuccessResponse(res, {
+    sendSuccessResponse(res, {
       status: 200,
       message: 'Attendances  Successfully Retrieved',
       data: attendances,
@@ -48,7 +48,7 @@ export const GetAttendances = TryCatch(async (req, res) => {
     attendances.push(studentAttendanceInfo);
   }
 
-  SendSuccessResponse(res, {
+  sendSuccessResponse(res, {
     status: 200,
     message: 'Attendances  Successfully Retrieved',
     data: attendances,

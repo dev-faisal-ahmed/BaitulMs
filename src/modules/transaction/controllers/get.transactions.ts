@@ -1,7 +1,7 @@
 import {
   isValidDate,
   isValidNumber,
-  SendSuccessResponse,
+  sendSuccessResponse,
 } from '../../../helpers';
 import { TryCatch } from '../../../utils';
 import { Transaction } from '../model';
@@ -83,7 +83,7 @@ export const GetTransactions = TryCatch(async (req, res) => {
   const total = await Transaction.countDocuments(dbQuery);
   const totalPages = Math.ceil(total / limit);
 
-  SendSuccessResponse(res, {
+  sendSuccessResponse(res, {
     status: 200,
     message: 'Transactions Retrieved Successfully',
     meta: { page, limit, total, totalPages },

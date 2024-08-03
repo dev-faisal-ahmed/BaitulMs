@@ -1,7 +1,7 @@
 import {
   generateAuthToken,
   matchPassword,
-  SendSuccessResponse,
+  sendSuccessResponse,
 } from '../../../helpers';
 import { AppError, TryCatch } from '../../../utils';
 import { User } from '../../user/model';
@@ -26,7 +26,7 @@ export const Login = TryCatch(async (req, res) => {
     role: isUserExist.role,
   });
 
-  SendSuccessResponse(res, {
+  sendSuccessResponse(res, {
     status: 200,
     message: 'Successfully Logged In',
     data: { token },

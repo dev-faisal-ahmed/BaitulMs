@@ -1,7 +1,7 @@
 import {
   hashPassword,
   matchPassword,
-  SendSuccessResponse,
+  sendSuccessResponse,
 } from '../../../helpers';
 import { AppError, TryCatch } from '../../../utils';
 import { User } from '../../user/model';
@@ -28,7 +28,7 @@ export const ChangePassword = TryCatch(async (req, res) => {
   userInfo.password = hashedPassword;
   await userInfo.save();
 
-  SendSuccessResponse(res, {
+  sendSuccessResponse(res, {
     status: 200,
     message: 'Password Changed Successfully',
     data: null,

@@ -4,7 +4,7 @@ import { TAddAttendancesPayload } from '../validation';
 import { DateTracker } from '../../date.tracker/model';
 import { Attendance } from '../model';
 import { Student } from '../../student/model';
-import { SendSuccessResponse } from '../../../helpers';
+import { sendSuccessResponse } from '../../../helpers';
 
 export const AddAttendances = TryCatch(async (req, res) => {
   const payload: TAddAttendancesPayload = req.body;
@@ -75,7 +75,7 @@ export const AddAttendances = TryCatch(async (req, res) => {
     await session.commitTransaction();
     await session.endSession();
 
-    SendSuccessResponse(res, {
+    sendSuccessResponse(res, {
       status: 200,
       message: 'Attendances added successfully',
       data: attendances,

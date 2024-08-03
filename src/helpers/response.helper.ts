@@ -11,14 +11,14 @@ type TSuccessResponse = {
 
 type TErrorResponse = { error: any; message: string; status: number };
 
-export const SendSuccessResponse = (
+export const sendSuccessResponse = (
   res: Response,
   { status, meta, data, message }: TSuccessResponse
 ) => {
   return res.status(status).json({ ok: true, message, meta, data });
 };
 
-export const SendErrorResponse = (
+export const sendErrorResponse = (
   res: Response,
   { status, message, error }: TErrorResponse
 ) => {

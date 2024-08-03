@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { AppError, TryCatch } from '../../../utils';
 import { TAddTeacherPayload } from '../validation';
 import { Teacher } from '../model';
-import { formatter, hashPassword, SendSuccessResponse } from '../../../helpers';
+import { formatter, hashPassword, sendSuccessResponse } from '../../../helpers';
 import { User } from '../../user/model';
 
 export const AddTeacher = TryCatch(async (req, res) => {
@@ -32,7 +32,7 @@ export const AddTeacher = TryCatch(async (req, res) => {
     await session.commitTransaction();
     await session.endSession();
 
-    SendSuccessResponse(res, {
+    sendSuccessResponse(res, {
       status: 200,
       message: 'Teacher Added Successfully',
       data: newTeacher,
