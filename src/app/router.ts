@@ -10,6 +10,7 @@ import { AttendancesRouter } from '../modules/attendance/router';
 import { ExamRouter } from '../modules/exam/router';
 import { ResultRouter } from '../modules/result/router';
 import { AuthRouter } from '../modules/auth/router';
+import { SubjectRouter } from '../modules/subject/router';
 
 export const AppRouter = Router();
 
@@ -22,3 +23,4 @@ AppRouter.use('/expense-category', ExpenseCategoryRouter);
 AppRouter.use('/attendances', AttendancesRouter);
 AppRouter.use('/exam', ExamRouter);
 AppRouter.use('/result', ResultRouter);
+AppRouter.use('/subject', SubjectRouter);
