@@ -11,3 +11,10 @@ ExamRouter.post(
   ValidationHandler(ExamValidation.SAddExam),
   ExamController.AddExam
 );
+
+ExamRouter.patch(
+  '/:examId',
+  AuthGuard('ADMIN'),
+  ValidationHandler(ExamValidation.SUpdateExam),
+  ExamController.UpdateExam
+);
