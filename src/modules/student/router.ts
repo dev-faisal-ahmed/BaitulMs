@@ -4,10 +4,15 @@ import { StudentController } from './controllers';
 import { AuthGuard, ValidationHandler } from '../../middleware';
 
 export const StudentRouter = Router();
+export const StudentsRouter = Router();
 
+// student router
 StudentRouter.post(
   '/',
   AuthGuard('ADMIN'),
   ValidationHandler(StudentValidation.SAddStudent),
   StudentController.AddStudent
 );
+
+// students router
+StudentsRouter.get('/', AuthGuard('ADMIN'), StudentController.GetStudents);

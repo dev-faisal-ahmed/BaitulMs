@@ -1,4 +1,5 @@
-import { Schema } from 'mongoose';
+import { Model, Schema } from 'mongoose';
+import { TStudent } from '../student/interface';
 
 export type TTransaction = {
   _id: Schema.Types.ObjectId;
@@ -23,3 +24,11 @@ export type TSalary = {
 export type TTransactionType = 'PAYMENT' | 'SALARY' | 'EXPENSE';
 export type TPaymentType = 'MONTHLY_FEE' | 'ADMISSION_FEE' | 'OTHERS';
 export type TSalaryType = 'SALARY' | 'OTHERS';
+
+// model related type
+export type TTransactionModel = Model<TTransaction> & {
+  getDuePayment(
+    studentId: Schema.Types.ObjectId,
+    studentAdmissionDate: Date
+  ): Promise<{ due: number }>;
+};

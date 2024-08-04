@@ -68,6 +68,7 @@ const StudentSchema = new Schema<TStudent>(
     guardian: { type: GuardianSubSchema, required: true },
     address: { type: AddressSubSchema, required: true },
     status: { type: String, enum: StudentsStatus, default: 'ACTIVE' },
+    admittedAt: { type: Date, default: new Date() },
   },
   { timestamps: true }
 );

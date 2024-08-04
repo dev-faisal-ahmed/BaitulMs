@@ -7,7 +7,7 @@ import {
   ExamSubjectsRouter,
 } from '../modules/exam.subject/router';
 import { Router } from 'express';
-import { StudentRouter } from '../modules/student/router';
+import { StudentRouter, StudentsRouter } from '../modules/student/router';
 import { TeacherRouter } from '../modules/teacher/router';
 import { ExpenseCategoryRouter } from '../modules/expense.category/router';
 import { AttendancesRouter } from '../modules/attendance/router';
@@ -20,6 +20,7 @@ export const AppRouter = Router();
 
 AppRouter.use('/auth', AuthRouter);
 AppRouter.use('/student', StudentRouter);
+AppRouter.use('/students', StudentsRouter);
 AppRouter.use('/teacher', TeacherRouter);
 AppRouter.use('/transaction', TransactionRouter);
 AppRouter.use('/transactions', TransactionsRouter);

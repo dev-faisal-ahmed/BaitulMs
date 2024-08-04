@@ -29,3 +29,16 @@ export const formatter = (payload: string, size: number) => {
   data += payload;
   return data;
 };
+
+export const getTotalMonthsCount = (startDate: Date, endDate: Date) => {
+  const startMonth = startDate.getMonth();
+  const startYear = startDate.getFullYear();
+
+  const endMonth = endDate.getMonth();
+  const endYear = endDate.getFullYear();
+
+  let totalMonths = (endYear - startYear) * 12;
+  totalMonths += endMonth - startMonth + 1;
+
+  return totalMonths;
+};

@@ -1,6 +1,12 @@
+import {
+  TPayment,
+  TSalary,
+  TTransaction,
+  TTransactionModel,
+} from '../interface';
 import { Schema, model } from 'mongoose';
-import { TPayment, TSalary, TTransaction } from './interface';
-import { PaymentTypes, SalaryTypes, TransactionTypes } from './constants';
+import { getDuePayment } from './get.due.payment';
+import { PaymentTypes, SalaryTypes, TransactionTypes } from '../constants';
 
 const PaymentSubSchema = new Schema<TPayment>(
   {
@@ -18,7 +24,7 @@ const SalarySubSchema = new Schema<TSalary>(
   { _id: false }
 );
 
-const TransactionSchema = new Schema<TTransaction>(
+const TransactionSchema = new Schema<TTransaction, TTransactionModel>(
   {
     type: { type: String, enum: TransactionTypes, required: true },
     payment: { type: PaymentSubSchema },
@@ -30,7 +36,9 @@ const TransactionSchema = new Schema<TTransaction>(
   { timestamps: true }
 );
 
-export const Transaction = model<TTransaction>(
+TransactionSchema.statics.getDuePayment = getDuePayment;
+
+export const Transaction = model<TTransaction, TTransactionModel>(
   'transaction',
   TransactionSchema
 );

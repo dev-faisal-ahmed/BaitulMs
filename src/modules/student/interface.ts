@@ -23,6 +23,7 @@ export type TStudent = {
   guardian: TGuardian;
   address: TAddress;
   status: TStatus;
+  admittedAt: Date;
 };
 
 export type TStudentName = {
