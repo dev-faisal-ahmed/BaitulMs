@@ -23,6 +23,13 @@ const SAddExamSubjects = z.object({
     .array(),
 });
 
-export const ExamSubjectValidation = { SAddExamSubjects };
+const SUpdateExamSubject = z.object({
+  name: z.string().optional(),
+  class: SClass.optional(),
+  fullMarks: z.number().min(0, { message: 'Min Value is 0' }).optional(),
+});
+
+export const ExamSubjectValidation = { SAddExamSubjects, SUpdateExamSubject };
 
 export type TAddExamSubjectsPayload = z.infer<typeof SAddExamSubjects>;
+export type TUpdateExamSubjectPayload = z.infer<typeof SUpdateExamSubject>;
