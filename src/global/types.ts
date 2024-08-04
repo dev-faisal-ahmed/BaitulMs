@@ -17,6 +17,11 @@ export type TAddress = {
   district: string;
 };
 
+export type TClass = {
+  arabic: string;
+  general: string;
+};
+
 export type TBloodGroup =
   | 'A+'
   | 'A-'

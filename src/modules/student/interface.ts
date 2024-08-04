@@ -1,5 +1,11 @@
+import {
+  TAddress,
+  TBloodGroup,
+  TSection,
+  TStatus,
+  TClass,
+} from '../../global/types';
 import { Schema } from 'mongoose';
-import { TAddress, TBloodGroup, TSection, TStatus } from '../../global/types';
 
 export type TStudent = {
   _id: Schema.Types.ObjectId;
@@ -10,7 +16,7 @@ export type TStudent = {
   section: TSection;
   type: TStudentType;
   image: string;
-  class: TStudentClass;
+  class: TClass;
   dateOfBirth: Date;
   bloodGroup: TBloodGroup;
   parents: TParents;
@@ -22,11 +28,6 @@ export type TStudent = {
 export type TStudentName = {
   bengaliName: string;
   englishName: string;
-};
-
-export type TStudentClass = {
-  arabic: string;
-  general: string;
 };
 
 export type TStudentType = 'REGULAR' | 'IRREGULAR';

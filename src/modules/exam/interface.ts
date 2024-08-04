@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { TClass } from '../../global/types';
 
 export type TExam = {
   _id: Schema.Types.ObjectId;
@@ -7,6 +8,7 @@ export type TExam = {
   status: TExamStatus;
   percentile: number;
   subjects: TExamSubject[];
+  class: TClass;
 };
 
 export type TExamSubject = {

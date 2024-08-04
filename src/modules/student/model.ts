@@ -3,9 +3,9 @@ import {
   TParents,
   TPerson,
   TStudent,
-  TStudentClass,
   TStudentName,
 } from './interface';
+import { TClass } from '../../global/types';
 import { StudentTypes, StudentsStatus } from './constants';
 import { Schema, model } from 'mongoose';
 import { BloodGroups, Sections } from '../../global/constants';
@@ -19,7 +19,7 @@ const NameSubSchema = new Schema<TStudentName>(
   { _id: false }
 );
 
-const ClassSubSchema = new Schema<TStudentClass>(
+const ClassSubSchema = new Schema<TClass>(
   {
     arabic: { type: String, required: true },
     general: { type: String, required: true },
