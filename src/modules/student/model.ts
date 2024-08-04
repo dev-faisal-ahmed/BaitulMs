@@ -9,20 +9,12 @@ import { TClass } from '../../global/types';
 import { StudentTypes, StudentsStatus } from './constants';
 import { Schema, model } from 'mongoose';
 import { BloodGroups, Sections } from '../../global/constants';
-import { AddressSubSchema } from '../../global/schema';
+import { AddressSubSchema, ClassSubSchema } from '../../global/schema';
 
 const NameSubSchema = new Schema<TStudentName>(
   {
     bengaliName: { type: String, required: true },
     englishName: { type: String, required: true },
-  },
-  { _id: false }
-);
-
-const ClassSubSchema = new Schema<TClass>(
-  {
-    arabic: { type: String, required: true },
-    general: { type: String, required: true },
   },
   { _id: false }
 );
