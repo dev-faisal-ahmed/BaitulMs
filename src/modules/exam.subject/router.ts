@@ -21,3 +21,9 @@ ExamSubjectRouter.patch(
   ValidationHandler(ExamSubjectValidation.SUpdateExamSubject),
   ExamSubjectController.UpdateExamSubject
 );
+
+ExamSubjectRouter.delete(
+  '/:examSubjectId',
+  AuthGuard('ADMIN'),
+  ExamSubjectController.DeleteExamSubject
+);
