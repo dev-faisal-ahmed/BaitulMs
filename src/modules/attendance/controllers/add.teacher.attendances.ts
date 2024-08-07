@@ -1,15 +1,14 @@
 import mongoose from 'mongoose';
 import { AppError, TryCatch } from '../../../utils';
+import { TAddTeacherAttendancesPayload } from '../validation';
+import { getDayRange, sendSuccessResponse } from '../../../helpers';
 import { DateTracker } from '../../date.tracker/model';
 import { Attendance } from '../model';
-import { Student } from '../../student/model';
-import { getDayRange, sendSuccessResponse } from '../../../helpers';
-import { TAddStudentAttendancesPayload } from '../validation';
+import { Teacher } from '../../teacher/model';
 
-export const AddStudentAttendances = TryCatch(async (req, res) => {
-  const payload: TAddStudentAttendancesPayload = req.body;
+export const AddTeacherAttendances = TryCatch(async (req, res) => {
+  const payload: TAddTeacherAttendancesPayload = req.body;
   const session = await mongoose.startSession();
-
   try {
     session.startTransaction();
 
@@ -18,47 +17,51 @@ export const AddStudentAttendances = TryCatch(async (req, res) => {
 
     const todaysInfo = await DateTracker.findOne({
       date: { $gte: startOfDay, $lte: endOfDay },
-      dateFor: 'STUDENT',
+      dateFor: 'TEACHER',
     });
 
     if (todaysInfo && todaysInfo.status === 'HOLIDAY')
       throw new Error('Today is holiday');
 
-    const studentIds = payload.studentIds.reduce((acc: string[], studentId) => {
-      acc.push(studentId);
+    const teacherIds = payload.teacherIds.reduce((acc: string[], teacherId) => {
+      acc.push(teacherId);
       return acc;
     }, []);
 
     const attendances = [];
-
-    for (const studentId of studentIds) {
+    for (const teacherId of teacherIds) {
       const isAttendanceExist = await Attendance.findOne({
-        date: { $gte: startOfDay, $lte: endOfDay },
-        studentId,
+        date: { $gte: startOfDay.toString(), $lte: endOfDay.toString() },
+        teacherId,
       });
 
-      const studentInfo = await Student.findOne({ _id: studentId });
+      const teacherInfo = await Teacher.findOne({ _id: teacherId });
+
+      if (!teacherInfo) {
+        attendances.push(`Invalid TeacherId`);
+        continue;
+      }
 
       if (isAttendanceExist) {
         attendances.push(
-          `ID: ${studentInfo?.studentId} : Already ${isAttendanceExist.status}`
+          `ID: ${teacherInfo.teacherId} : Already ${isAttendanceExist.status}`
         );
 
         continue;
       }
 
       const [attendance] = await Attendance.create(
-        [{ studentId, date: new Date() }],
+        [{ teacherId, date: new Date().toString() }],
         { session }
       );
 
       if (attendance)
-        attendances.push(`ID: ${studentInfo?.studentId} : Present`);
+        attendances.push(`ID: ${teacherInfo.teacherId} : Present`);
     }
 
     if (!todaysInfo) {
       const [newDaysInfo] = await DateTracker.create(
-        [{ date: today, status: 'ACTIVE_DAY', dateFor: 'STUDENT' }],
+        [{ date: today, status: 'ACTIVE_DAY', dateFor: 'TEACHER' }],
         { session }
       );
 
@@ -70,7 +73,7 @@ export const AddStudentAttendances = TryCatch(async (req, res) => {
 
     sendSuccessResponse(res, {
       status: 200,
-      message: 'Attendances added successfully',
+      message: 'Attendances Added Successfully',
       data: attendances,
     });
   } catch (error: any) {

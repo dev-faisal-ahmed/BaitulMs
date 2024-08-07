@@ -12,6 +12,13 @@ AttendancesRouter.post(
   AttendanceController.AddStudentAttendances
 );
 
+AttendancesRouter.post(
+  '/teacher',
+  AuthGuard('ADMIN'),
+  ValidationHandler(AttendanceValidation.SAddTeacherAttendances),
+  AttendanceController.AddTeacherAttendances
+);
+
 AttendancesRouter.get(
   '/student',
   AuthGuard('ADMIN', 'TEACHER'),

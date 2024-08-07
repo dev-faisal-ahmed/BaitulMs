@@ -42,3 +42,21 @@ export const getTotalMonthsCount = (startDate: Date, endDate: Date) => {
 
   return totalMonths;
 };
+
+export const getDayRange = (date: Date) => {
+  const startOfDay = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
+
+  const endOfDay = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate() + 1
+  );
+
+  endOfDay.setMinutes(1439, 59, 999);
+
+  return { startOfDay, endOfDay };
+};
