@@ -14,5 +14,11 @@ TeacherRouter.post(
   TeacherController.AddTeacher
 );
 
+TeacherRouter.get(
+  '/:teacherId',
+  AuthGuard('ADMIN'),
+  TeacherController.GetTeacherById
+);
+
 // teachers
 TeachersRouter.get('/', AuthGuard('ADMIN'), TeacherController.GetTeachers);

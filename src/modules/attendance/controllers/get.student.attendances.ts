@@ -1,4 +1,3 @@
-import { Schema } from 'mongoose';
 import { TryCatch } from '../../../utils';
 import { DateTracker } from '../../date.tracker/model';
 import { Attendance } from '../model';
@@ -10,7 +9,12 @@ export const GetStudentAttendances = TryCatch(async (req, res) => {
   const { query } = req;
   const days = Number(query.days) || 30;
   const dbQuery: Record<string, any> = {};
-  const daysInfo = await DateTracker.getDatesByRange({ type: 'DAYS', days });
+
+  const daysInfo = await DateTracker.getDatesByRange({
+    type: 'DAYS',
+    dateFor: 'STUDENT',
+    days,
+  });
 
   // for a particular class
   if (query.arabic) dbQuery['class.arabic'] = query.arabic;
@@ -32,7 +36,7 @@ export const GetStudentAttendances = TryCatch(async (req, res) => {
 
   sendSuccessResponse(res, {
     status: 200,
-    message: 'Attendances  Successfully Retrieved',
+    message: 'Attendances Successfully Retrieved',
     data: attendances,
   });
 });

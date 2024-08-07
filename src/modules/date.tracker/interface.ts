@@ -12,8 +12,8 @@ export type TDateTracker = {
 
 // model
 export type TGetDatesByRangesArgs =
-  | { type: 'DAYS'; days: number }
-  | { type: 'RANGE'; startDate: Date; endDate?: Date };
+  | { type: 'DAYS'; dateFor: TDateFor; days: number }
+  | { type: 'RANGE'; startDate: Date; dateFor: TDateFor; endDate?: Date };
 
 export type TDateTrackerModel = Model<TDateTracker> & {
   getDatesByRange({ type }: TGetDatesByRangesArgs): Promise<TDateTracker[]>;
