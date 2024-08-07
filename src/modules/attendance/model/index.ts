@@ -5,11 +5,11 @@ import { getAttendanceByStudentId } from './get-attendance-by-student-id';
 
 const AttendanceSchema = new Schema<TAttendance, TAttendanceModel>(
   {
-    studentId: { type: String, required: true, ref: 'student' },
+    studentId: { type: Schema.Types.ObjectId, ref: 'student' },
+    teacherId: { type: Schema.Types.ObjectId, ref: 'teacher' },
     date: { type: Date, default: new Date() },
     status: { type: String, enum: AttendanceStatuses, default: 'PRESENT' },
   },
-
   { timestamps: true }
 );
 

@@ -1,7 +1,7 @@
-import { AddAttendances } from './add.attendances';
-import { GetAttendances } from './get.attendances';
+import { AddStudentAttendances } from './add.student.attendances';
+import { GetStudentAttendances } from './get.student.attendances';
 
 export const AttendanceController = {
-  AddAttendances,
-  GetAttendances,
+  AddStudentAttendances,
+  GetStudentAttendances,
 };

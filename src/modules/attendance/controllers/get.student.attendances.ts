@@ -6,7 +6,7 @@ import { Student } from '../../student/model';
 import { TStudentAttendanceInfo } from '../interface';
 import { sendSuccessResponse } from '../../../helpers';
 
-export const GetAttendances = TryCatch(async (req, res) => {
+export const GetStudentAttendances = TryCatch(async (req, res) => {
   const { query } = req;
   const days = Number(query.days) || 30;
 

@@ -2,13 +2,13 @@ import { Schema } from 'mongoose';
 import { TDateTracker } from '../../date.tracker/interface';
 import { TAttendance, TAttendancesInfo } from '../interface';
 import { Student } from '../../student/model';
+import { Attendance } from '.';
 
-export async function getAttendanceByStudentId(
-  this: any,
+export const getAttendanceByStudentId = async (
   daysInfo: TDateTracker[],
   studentId: Schema.Types.ObjectId,
   days: number
-) {
+) => {
   const studentInfo = await Student.findOne(
     { _id: studentId },
     { name: 1, studentId: 1, section: 1, image: 1, class: 1 }
@@ -18,7 +18,7 @@ export async function getAttendanceByStudentId(
   const startDay = new Date();
   startDay.setDate(today.getDate() - days);
 
-  const studentAttendancesInfo: TAttendance[] = await this.find({
+  const studentAttendancesInfo: TAttendance[] = await Attendance.find({
     studentId,
     date: { $gte: startDay, $lte: today },
   }).sort({ date: 1 });
@@ -56,4 +56,4 @@ export async function getAttendanceByStudentId(
   }
 
   return { studentInfo, attendances };
-}
+};

@@ -11,10 +11,10 @@ App.use(cors());
 App.use('/api/v1', AppRouter);
 
 App.get('/', (_, res) => {
-  res.status(200).json({ ok: true, message: 'Welcome To HiveMind API' });
+  res.status(200).json({ ok: true, message: 'Welcome To Baitul-Ms API' });
 });
 
-App.get('*', (_, res) => {
+App.all('*', (_, res) => {
   res.status(404).json({ ok: false, message: 'This path does not exist' });
 });
 

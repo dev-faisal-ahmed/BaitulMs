@@ -1,23 +1,25 @@
 import mongoose from 'mongoose';
 import { TryCatch } from '../../../utils';
-import { TAddAttendancesPayload } from '../validation';
 import { DateTracker } from '../../date.tracker/model';
 import { Attendance } from '../model';
 import { Student } from '../../student/model';
 import { sendSuccessResponse } from '../../../helpers';
+import { TAddStudentAttendancePayload } from '../validation';
 
-export const AddAttendances = TryCatch(async (req, res) => {
-  const payload: TAddAttendancesPayload = req.body;
+export const AddStudentAttendances = TryCatch(async (req, res) => {
+  const payload: TAddStudentAttendancePayload = req.body;
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
+
     const today = new Date();
     const startOfDay = new Date(
       today.getFullYear(),
       today.getMonth(),
       today.getDate()
     );
+
     const endOfDay = new Date(
       today.getFullYear(),
       today.getMonth(),
@@ -26,6 +28,7 @@ export const AddAttendances = TryCatch(async (req, res) => {
 
     const todaysInfo = await DateTracker.findOne({
       date: { $gte: startOfDay.toString(), $lte: endOfDay.toString() },
+      dateFor: 'STUDENT',
     });
 
     if (todaysInfo && todaysInfo.status === 'HOLIDAY')
@@ -65,7 +68,7 @@ export const AddAttendances = TryCatch(async (req, res) => {
 
     if (!todaysInfo) {
       const [newDaysInfo] = await DateTracker.create(
-        [{ date: today.toString(), status: 'ACTIVE_DAY' }],
+        [{ date: today.toString(), status: 'ACTIVE_DAY', dateFor: 'STUDENT' }],
         { session }
       );
 

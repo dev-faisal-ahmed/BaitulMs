@@ -5,6 +5,7 @@ import { TStudent } from '../student/interface';
 export type TAttendance = {
   _id: Schema.Types.ObjectId;
   studentId: Schema.Types.ObjectId;
+  teacherId: Schema.Types.ObjectId;
   date: Date;
   status: TAttendanceStatus;
 };

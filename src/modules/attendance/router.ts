@@ -6,14 +6,14 @@ import { AttendanceController } from './controllers';
 export const AttendancesRouter = Router();
 
 AttendancesRouter.post(
-  '/',
+  '/student',
   AuthGuard('ADMIN', 'TEACHER'),
-  ValidationHandler(AttendanceValidation.SAddAttendances),
-  AttendanceController.AddAttendances
+  ValidationHandler(AttendanceValidation.SAddStudentAttendances),
+  AttendanceController.AddStudentAttendances
 );
 
 AttendancesRouter.get(
-  '/',
+  '/student',
   AuthGuard('ADMIN', 'TEACHER'),
-  AttendanceController.GetAttendances
+  AttendanceController.GetStudentAttendances
 );
