@@ -6,6 +6,7 @@ import {
 } from '../interface';
 import { Schema, model } from 'mongoose';
 import { getDuePayment } from './get.due.payment';
+import { getDueSalary } from './get.due.salary';
 import { PaymentTypes, SalaryTypes, TransactionTypes } from '../constants';
 
 const PaymentSubSchema = new Schema<TPayment>(
@@ -37,6 +38,7 @@ const TransactionSchema = new Schema<TTransaction, TTransactionModel>(
 );
 
 TransactionSchema.statics.getDuePayment = getDuePayment;
+TransactionSchema.statics.getDueSalary = getDueSalary;
 
 export const Transaction = model<TTransaction, TTransactionModel>(
   'transaction',

@@ -31,4 +31,8 @@ export type TTransactionModel = Model<TTransaction> & {
     studentId: Schema.Types.ObjectId,
     studentAdmissionDate: Date
   ): Promise<{ due: number }>;
+  getDueSalary(
+    teacherId: Schema.Types.ObjectId,
+    teacherJoiningDate: Date
+  ): Promise<{ due: number }>;
 };

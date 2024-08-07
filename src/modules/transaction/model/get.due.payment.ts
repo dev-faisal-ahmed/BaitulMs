@@ -1,11 +1,11 @@
 import { Schema } from 'mongoose';
-import { getTotalMonthsCount } from '../../../helpers';
 import { Transaction } from '.';
+import { getTotalMonthsCount } from '../../../helpers';
 
-export async function getDuePayment(
+export const getDuePayment = async (
   studentId: Schema.Types.ObjectId,
   studentAdmissionDate: Date
-) {
+) => {
   const payments = await Transaction.find({
     type: 'PAYMENT',
     'payment.studentId': studentId,
@@ -27,4 +27,4 @@ export async function getDuePayment(
   const totalMonths = getTotalMonthsCount(studentAdmissionDate, today);
 
   return { due: totalMonths - totalPaidMonths };
-}
+};
