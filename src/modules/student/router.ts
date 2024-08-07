@@ -16,8 +16,13 @@ StudentRouter.post(
 
 StudentRouter.get(
   '/:studentId',
-  AuthGuard('ADMIN'),
+  AuthGuard('ADMIN', 'STUDENT'),
   StudentController.GetStudentInfo
+);
+StudentRouter.get(
+  '/:studentId/payment',
+  AuthGuard('ADMIN', 'STUDENT'),
+  StudentController.GetPaymentsByStudentId
 );
 
 // students router
