@@ -14,5 +14,11 @@ StudentRouter.post(
   StudentController.AddStudent
 );
 
+StudentRouter.get(
+  '/:studentId',
+  AuthGuard('ADMIN'),
+  StudentController.GetStudentInfo
+);
+
 // students router
 StudentsRouter.get('/', AuthGuard('ADMIN'), StudentController.GetStudents);
