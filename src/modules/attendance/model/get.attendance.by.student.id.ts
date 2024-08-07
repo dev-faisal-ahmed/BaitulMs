@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 import { TDateTracker } from '../../date.tracker/interface';
-import { TAttendance, TAttendancesInfo } from '../interface';
+import { TAttendancesInfo } from '../interface';
 import { Student } from '../../student/model';
 import { Attendance } from '.';
 
@@ -18,7 +18,7 @@ export const getAttendanceByStudentId = async (
   const startDay = new Date();
   startDay.setDate(today.getDate() - days);
 
-  const studentAttendancesInfo: TAttendance[] = await Attendance.find({
+  const studentAttendancesInfo = await Attendance.find({
     studentId,
     date: { $gte: startDay, $lte: today },
   }).sort({ date: 1 });

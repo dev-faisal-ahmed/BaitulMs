@@ -9,26 +9,8 @@ import { sendSuccessResponse } from '../../../helpers';
 export const GetStudentAttendances = TryCatch(async (req, res) => {
   const { query } = req;
   const days = Number(query.days) || 30;
-
-  const studentId = query.studentId as string;
-  const studentIdAsObjectId = new Schema.ObjectId(studentId);
   const dbQuery: Record<string, any> = {};
-  const daysInfo = await DateTracker.getDatesByRange(days);
-
-  // for a particular student
-  if (studentId) {
-    const attendances = await Attendance.getAttendanceByStudentId(
-      daysInfo,
-      studentIdAsObjectId,
-      days
-    );
-
-    sendSuccessResponse(res, {
-      status: 200,
-      message: 'Attendances  Successfully Retrieved',
-      data: attendances,
-    });
-  }
+  const daysInfo = await DateTracker.getDatesByRange({ type: 'DAYS', days });
 
   // for a particular class
   if (query.arabic) dbQuery['class.arabic'] = query.arabic;

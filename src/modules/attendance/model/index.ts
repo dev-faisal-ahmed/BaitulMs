@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { TAttendance, TAttendanceModel } from '../interface';
 import { AttendanceStatuses } from '../constants';
-import { getAttendanceByStudentId } from './get-attendance-by-student-id';
+import { getAttendanceByStudentId } from './get.attendance.by.student.id';
 
 const AttendanceSchema = new Schema<TAttendance, TAttendanceModel>(
   {
