@@ -12,9 +12,13 @@ export const GetStudents = TryCatch(async (req, res) => {
   const arabic = query.arabic;
   const section = query.section as string;
   const name = query.name;
+  const studentId = query.studentId;
+  const phone = query.phone;
 
   const dbQuery: Record<string, any> = {};
 
+  if (studentId) dbQuery.studentId = studentId;
+  if (phone) dbQuery['guardian.phone'] = phone;
   if (general) dbQuery['class.general'] = general;
   if (arabic) dbQuery['class.arabic'] = arabic;
   if (section && Sections.includes(section.toUpperCase() as TSection))

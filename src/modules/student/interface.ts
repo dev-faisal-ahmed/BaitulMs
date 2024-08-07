@@ -49,5 +49,5 @@ export type TGuardian = {
   relation: string;
   address: string;
   nid: string;
-  number: string;
+  phone: string;
 };

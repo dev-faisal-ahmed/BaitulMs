@@ -8,7 +8,7 @@ import {
 } from '../modules/exam.subject/router';
 import { Router } from 'express';
 import { StudentRouter, StudentsRouter } from '../modules/student/router';
-import { TeacherRouter } from '../modules/teacher/router';
+import { TeacherRouter, TeachersRouter } from '../modules/teacher/router';
 import { ExpenseCategoryRouter } from '../modules/expense.category/router';
 import { AttendancesRouter } from '../modules/attendance/router';
 import { ExamRouter } from '../modules/exam/router';
@@ -22,6 +22,7 @@ AppRouter.use('/auth', AuthRouter);
 AppRouter.use('/student', StudentRouter);
 AppRouter.use('/students', StudentsRouter);
 AppRouter.use('/teacher', TeacherRouter);
+AppRouter.use('/teachers', TeachersRouter);
 AppRouter.use('/transaction', TransactionRouter);
 AppRouter.use('/transactions', TransactionsRouter);
 AppRouter.use('/expense-category', ExpenseCategoryRouter);

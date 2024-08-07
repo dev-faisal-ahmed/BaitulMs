@@ -13,7 +13,7 @@ export type TTeacher = {
   name: string;
   nid: string;
   status: TStatus;
-  number: string;
+  phone: string;
   section: TSection;
   salary: number;
   dateOfBirth: Date;
