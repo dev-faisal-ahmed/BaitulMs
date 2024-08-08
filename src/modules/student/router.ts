@@ -25,5 +25,11 @@ StudentRouter.get(
   StudentController.GetPaymentsByStudentId
 );
 
+StudentRouter.get(
+  '/:studentId/payment/due',
+  AuthGuard('ADMIN', 'STUDENT'),
+  StudentController.GetDuePaymentInfo
+);
+
 // students router
 StudentsRouter.get('/', AuthGuard('ADMIN'), StudentController.GetStudents);
