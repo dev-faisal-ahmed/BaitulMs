@@ -4,7 +4,9 @@ import { AttendanceValidation } from './validation';
 import { AttendanceController } from './controllers';
 
 export const AttendancesRouter = Router();
+export const AttendanceRouter = Router();
 
+// attendances
 AttendancesRouter.post(
   '/student',
   AuthGuard('ADMIN', 'TEACHER'),
@@ -23,4 +25,12 @@ AttendancesRouter.get(
   '/student',
   AuthGuard('ADMIN', 'TEACHER'),
   AttendanceController.GetStudentAttendances
+);
+
+// attendance
+AttendanceRouter.post(
+  '/teacher/leave',
+  AuthGuard('ADMIN'),
+  ValidationHandler(AttendanceValidation.SGrantTeacherLeave),
+  AttendanceController.GrantTeacherLeave
 );

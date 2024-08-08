@@ -47,3 +47,31 @@ export const getDayRange = (date: Date) => {
 
   return { startOfDay, endOfDay };
 };
+
+export const isBiggerDate = (date: Date, targetDate: Date) => {
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  const targetDay = targetDate.getDate();
+  const targetMonth = targetDate.getMonth();
+  const targetYear = targetDate.getFullYear();
+
+  if (year > targetYear) return true;
+  if (year === targetYear && month > targetMonth) return true;
+  if (year === targetYear && month === targetMonth && day > targetDay)
+    return true;
+
+  return false;
+};
+
+export const generateDates = (start: Date, end: Date) => {
+  let date = new Date(start);
+  const dates = [];
+
+  while (!isBiggerDate(date, end)) {
+    dates.push(date);
+    date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+  }
+  return dates;
+};

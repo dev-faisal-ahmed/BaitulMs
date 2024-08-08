@@ -17,7 +17,6 @@ export const GetDuePaymentInfo = TryCatch(async (req, res) => {
     'payment.studentId': studentId,
     'payment.type': 'MONTHLY_FEE',
   });
-  console.log({ payments });
 
   let startDate = new Date(studentInfo.admittedAt);
   const endDate = new Date();
@@ -33,6 +32,7 @@ export const GetDuePaymentInfo = TryCatch(async (req, res) => {
     startDate = new Date(year, month + 1, startDate.getDate());
   }
 
+  // removing the months which is paid
   payments.forEach((payment) => {
     const { forDate } = payment;
     const year = forDate.getFullYear();
