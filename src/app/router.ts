@@ -18,6 +18,7 @@ import { ExamRouter } from '../modules/exam/router';
 import { ResultRouter } from '../modules/result/router';
 import { AuthRouter } from '../modules/auth/router';
 import { SubjectRouter } from '../modules/subject/router';
+import { NoticeRouter } from '../modules/notice/router';
 
 export const AppRouter = Router();
 
@@ -36,3 +37,4 @@ AppRouter.use('/exam', ExamRouter);
 AppRouter.use('/exam/subjects', ExamSubjectsRouter);
 AppRouter.use('/exam/subject', ExamSubjectRouter);
 AppRouter.use('/result', ResultRouter);
+AppRouter.use('/notice', NoticeRouter);
