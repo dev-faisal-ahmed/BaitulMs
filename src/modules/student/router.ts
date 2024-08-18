@@ -20,15 +20,15 @@ StudentRouter.get(
   StudentController.GetStudentInfo
 );
 StudentRouter.get(
-  '/:studentId/payment',
+  '/:studentId/payments',
   AuthGuard('ADMIN', 'STUDENT'),
   StudentController.GetPaymentsByStudentId
 );
 
 StudentRouter.get(
-  '/:studentId/payment/due',
+  '/:studentId/payments/due',
   AuthGuard('ADMIN', 'STUDENT'),
-  StudentController.GetDuePaymentInfo
+  StudentController.GetDuePaymentsInfo
 );
 
 // students router

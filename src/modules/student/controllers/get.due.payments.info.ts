@@ -7,7 +7,7 @@ import { AppError, TryCatch } from '../../../utils';
 import { Transaction } from '../../transaction/model';
 import { Student } from '../model';
 
-export const GetDuePaymentInfo = TryCatch(async (req, res) => {
+export const GetDuePaymentsInfo = TryCatch(async (req, res) => {
   const { studentId } = req.params;
 
   const studentInfo = await Student.findOne({ _id: studentId });
